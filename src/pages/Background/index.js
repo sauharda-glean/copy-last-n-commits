@@ -1,7 +1,7 @@
 function copyLastNCommits() {
     // Constants
     const defaultNumCommitsToCopy = 3;
-    const gitCommitCherryPickCommand = 'gpn' // I set 'gpn' as a shortcut for 'git commit --cherry-pick';
+    const gitCommitCherryPickCommand = 'gcp' // I set 'gpn' as a shortcut for 'git commit --cherry-pick';
     const numCommitsToCopyPrompt = 'How many commits do you want to copy?';
 
     // Function definitions
@@ -27,7 +27,7 @@ function copyLastNCommits() {
         document.body.removeChild(tempElement);
     }
     const getCommitsFromPage = () => {
-        const elementsWithClassName = Array.from(document.getElementsByClassName('js-commits-list-item')).reverse();
+        let elementsWithClassName = Array.from(document.getElementsByClassName('js-commits-list-item')).reverse();
 
         const commits = [];
         for (let i = 0; i < Math.min(elementsWithClassName.length, numCommitsToCopy); i++) {
@@ -37,6 +37,7 @@ function copyLastNCommits() {
                 commits.push(hrefParts[hrefParts.length - 1]);
             }
         }
+        return commits
     }
     const isGitCommitsPage = () => {
         const url = window.location.href;
@@ -51,10 +52,10 @@ function copyLastNCommits() {
 
     const commits = getCommitsFromPage();
 
-    const text = gitCommitCherryPickCommand + commits.reverse().join(" ");
+    const text = `${gitCommitCherryPickCommand} ${commits.reverse().join(" ")}`;
     copyToClipboard(text);
 
-    console.log('Copied to clipboard: ' + text);
+    console.log(`Copied to clipboard: "${text}"`);
 }
 
 chrome.action.onClicked.addListener((tab) => {
