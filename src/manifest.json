@@ -2,6 +2,9 @@
   "name": "Copy Last N Commits",
   "version": "1.0",
   "manifest_version": 3,
+  "action": {
+    "default_popup": "popup.html"
+  },
   "background": {
     "service_worker": "background.bundle.js"
   },
@@ -9,13 +12,20 @@
     "activeTab",
     "scripting"
   ],
-  "action": {},
   "commands": {
-    "_execute_action": {
+    "hide_test_files": {
+      "suggested_key": {
+        "default": "Shift+Ctrl+H",
+        "mac": "Command+MacCtrl+H"
+      },
+      "description": "Hide test files"
+    },
+    "copy_commits": {
       "suggested_key": {
         "default": "Shift+Ctrl+C",
-        "mac": "Command+Shift+Z"
-      }
+        "mac": "Command+MacCtrl+Z"
+      },
+      "description": "Copy last N commits"
     }
   }
 }
