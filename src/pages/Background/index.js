@@ -80,6 +80,17 @@ chrome.commands.onCommand.addListener((command) => {
 
                         if (!isGitFilesPage()) return;
 
+                        const sideBarTestFiles = document.querySelectorAll("li.ActionList-item--subItem")
+                        sideBarTestFiles.forEach((file) => {
+                            const fileName = file.innerText;
+                            const fileNameParts = fileName.split("\n");
+                            if (fileNameParts.length === 1) {
+                                if (file.role == 'treeitem' && fileName.includes("Test.java")) {
+                                    file.style.opacity = 0.5;
+                                }
+                            }
+                        })
+
                         const files = document.querySelectorAll(".file")
                         files.forEach((file) => {
                             const fileInfo = file.querySelector("span.Truncate");
