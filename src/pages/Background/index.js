@@ -73,6 +73,10 @@ chrome.commands.onCommand.addListener((command) => {
                 {
                     target: { tabId: activeTab.id },
                     function: () => {
+                        const isTestFile = (fileName) => {
+                            const testFileSuffixes = ["test.java", "test.go"]
+                            return testFileSuffixes.some((suffix) => fileName.toLowerCase().endsWith(suffix))
+                        }
                         const isGitFilesPage = () => {
                             const url = window.location.href;
                             return url.match(/https:\/\/github.com\/.*\/.*\/pull\/.*\/files/g) !== null;
@@ -85,7 +89,7 @@ chrome.commands.onCommand.addListener((command) => {
                             const fileName = file.innerText;
                             const fileNameParts = fileName.split("\n");
                             if (fileNameParts.length === 1) {
-                                if (file.role == 'treeitem' && fileName.includes("Test.java")) {
+                                if (file.role == 'treeitem' && isTestFile(fileName)) {
                                     file.style.opacity = 0.5;
                                 }
                             }
@@ -95,7 +99,7 @@ chrome.commands.onCommand.addListener((command) => {
                         files.forEach((file) => {
                             const fileInfo = file.querySelector("span.Truncate");
                             const fileName = fileInfo.innerText;
-                            if (fileName.includes("Test.java")) {
+                            if (isTestFile(fileName)) {
                                 file.style.opacity = 0.5;
                                 const button = file.querySelector("button.js-details-target");
                                 if (button.getAttribute("aria-expanded") === "true") {
