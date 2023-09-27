@@ -74,7 +74,7 @@ chrome.commands.onCommand.addListener((command) => {
                     target: { tabId: activeTab.id },
                     function: () => {
                         const isTestFile = (fileName) => {
-                            const testFileSuffixes = ["test.java", "test.go"]
+                            const testFileSuffixes = ["test.java", "test.go", ".bazel"]
                             return testFileSuffixes.some((suffix) => fileName.toLowerCase().endsWith(suffix))
                         }
                         const isGitFilesPage = () => {
