@@ -26,6 +26,13 @@
         "mac": "Command+MacCtrl+Z"
       },
       "description": "Copy last N commits"
+    },
+    "open_execution_parameters": {
+      "suggested_key": {
+        "default": "Shift+Ctrl+O",
+        "mac": "Command+MacCtrl+O"
+      },
+      "description": "Open all execution parameters in spinnaker"
     }
   }
 }

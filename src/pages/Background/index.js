@@ -110,7 +110,27 @@ chrome.commands.onCommand.addListener((command) => {
                     },
                 }
             );
-        }
+        } else if (command = "open_execution_parameters") {
+            chrome.scripting.executeScript(
+                {
+                    target: { tabId: activeTab.id },
+                    function: () => {
+                        // Select all div elements with the class name "execution-parameters-button"
+                        const divs = document.querySelectorAll('div.execution-parameters-button');
 
+                        // Loop through each div element
+                        divs.forEach(div => {
+                            // Select all a tags within the current div
+                            const links = div.querySelectorAll('a');
+
+                            // Loop through each a tag and click it
+                            links.forEach(link => {
+                                link.click();
+                            });
+                        });
+                    },
+                }
+            );
+        }
     })
 });
